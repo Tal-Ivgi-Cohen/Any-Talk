@@ -1,0 +1,14 @@
+.app-footer{
+    display: flex;
+    flex-direction: row;
+    height: 10vh;
+    background-color:$clr6;
+    color: $clr1;
+    align-items: center;
+    justify-content: space-around;
+    grid-column: 1 /-1;
+    margin-top: rem(115px)
+
+}
+
+

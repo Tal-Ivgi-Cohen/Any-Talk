@@ -1,0 +1,32 @@
+* {
+    box-sizing: border-box;
+}
+
+::selection {
+    background-color: black;
+    color: #fff;
+}
+
+html {
+    font-family: neuzeit;
+    font-size: rem(18px);
+    letter-spacing: 1.5px;
+    color: $clr6;
+    line-height: 1.6;
+}
+
+body {
+    margin: 0;
+    background-color: $clr6;
+    color: $clr2;
+    overflow-x: hidden;
+}
+
+a {
+    color: $clr2;
+    text-decoration: none;
+}
+
+a:hover {
+    color: $clr3;
+}

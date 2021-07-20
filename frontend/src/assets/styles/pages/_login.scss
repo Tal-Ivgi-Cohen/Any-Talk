@@ -1,0 +1,57 @@
+.login-area {
+    height: 30vh;
+    display: flex;
+    align-items: center;
+    margin-left: 45%;
+}
+
+.login-form {
+    margin: 0 auto;
+}
+
+button {
+    margin: 10px auto;
+}
+
+.login {
+    .login-title {
+        text-align: center;
+    }
+    .login-img {
+        max-height: 100px;
+        max-width: 50vh;
+        margin: 0 auto;
+        img {
+            max-height: 100px;
+            display: flex;
+            margin: 0 auto;
+        }
+    }
+}
+
+.login-user {
+    h3 {
+        text-align: center;
+    }
+}
+.logout-btn {
+    margin-left: 47%;
+}
+
+@media (max-width: $mobile-breakpoint) {
+    .login-area {
+        height: 30vh;
+        display: flex;
+        align-items: center;
+        margin-left: 30%;
+    }
+    .logout-btn {
+        margin-left: 35%;
+    }
+    .login-area {
+        height: 30vh;
+        display: flex;
+        align-items: center;
+        margin-left: 25%;
+    }
+}
