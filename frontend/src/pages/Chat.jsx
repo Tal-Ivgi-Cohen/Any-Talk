@@ -59,6 +59,7 @@ class _Chat extends Component {
       <div className="chat">
         <p><span>Any talk</span> Chat</p>
         <div className="chat-label">
+          <small>Press here and start to (Any)talk</small>
           <label>
             <input
               type="radio"

@@ -8,7 +8,6 @@ export const userService = {
     remove,
     update,
     getLoggedinUser,
-    
 }
 
 window.userService = userService

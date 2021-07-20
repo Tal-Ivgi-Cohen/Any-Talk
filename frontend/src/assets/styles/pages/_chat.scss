@@ -4,7 +4,7 @@ body {
     font-family: neuzeit;
 }
 .chat {
-    height: 65vh;
+    height: 75vh;
     margin: 0 10px;
     p {
         text-align: center;
@@ -53,7 +53,7 @@ body {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    height: 60vh;
+    height: 65vh;
     .messages > li {
         padding: 0.5rem 1rem;
     }
@@ -70,3 +70,36 @@ body {
         align-items: center;
     }
 }
+
+
+@media(max-width:$mobile-breakpoint){
+    .chat {
+        height: 32vh;
+        margin: 0 10px;
+        p {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            span {
+                color: aqua;
+            }
+        }
+        .chat-label {
+            margin: 0 auto;
+        }
+    }
+ }
+
+ .messages {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    height: 29vh;
+    .messages > li {
+        padding: 0.5rem 1rem;
+    }
+    .messages > li:nth-child(odd) {
+        background: #efefef;
+    }
+}
+ 
