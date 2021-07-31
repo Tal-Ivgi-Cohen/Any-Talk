@@ -1,5 +1,6 @@
-
 const dbService = require('../../services/db.service')
+const logger = require('../../services/logger.service')
+const ObjectId = require('mongodb').ObjectId
 
 module.exports = {
     query,
@@ -10,60 +11,100 @@ module.exports = {
     add
 }
 
-
-function query(criteria = {}) {
-    var namePart = criteria.name || '';
-    var query = `SELECT * FROM user  WHERE user.nickname LIKE '%${namePart}%'`;
-
-    return dbService.runSQL(query)
+async function query(filterBy = {}) {
+    const criteria = _buildCriteria(filterBy)
+    try {
+        const collection = await dbService.getCollection('user')
+        var users = await collection.find(criteria).toArray()
+        users = users.map(user => {
+            delete user.password
+            user.createdAt = ObjectId(user._id).getTimestamp()
+            return user
+        })
+        return users
+    } catch (err) {
+        logger.error('cannot find users', err)
+        throw err
+    }
 }
 
 
 async function getById(userId) {
-    var query = `SELECT * FROM user WHERE user._id = ${userId}`;
-    var users = await dbService.runSQL(query);
-    if (users.length === 1) return users[0];
-    throw new Error(`user id ${userId} not found`);
+    try {
+        const collection = await dbService.getCollection('user')
+        const user = await collection.findOne({ '_id': ObjectId(userId) })
+        return user
+    } catch (err) {
+        logger.error(`while finding user ${userId}`, err)
+        throw err
+    }
 }
-
 
 async function getByUserNickname(nickname) {
-
-    var query=`SELECT * FROM user WHERE nickname= "${nickname}"`; 
-    console.log('query',query);
-    var users = await dbService.runSQL(query);
-    if (users.length === 1) return users[0];
-    throw new Error(`user nickname ${nickname} not found`);	
+    try {
+        const collection = await dbService.getCollection('user')
+        const user = await collection.findOne({ nickname})
+        return user
+    } catch (err) {
+        logger.error(`while finding user ${username}`, err)
+        throw err
+    }
 }
 
-
 async function remove(userId) {
-    var query = `DELETE FROM user WHERE user._id = ${userId}`;
-
-    return dbService.runSQL(query)
-        .then(okPacket => okPacket.affectedRows === 1
-            ? okPacket
-            : Promise.reject(new Error(`No user deleted - user id ${userId}`)));
+    try {
+        const collection = await dbService.getCollection('user')
+        await collection.deleteOne({ '_id': ObjectId(userId) })
+    } catch (err) {
+        logger.error(`cannot remove user ${userId}`, err)
+        throw err
+    }
 }
 
 async function update(user) {
-    var query = `UPDATE user set name = "${user.nickname}",
-                                fullname = "${user.fullname}"
-                WHERE user._id = ${user._id}`;
-
-    var okPacket = await dbService.runSQL(query);
-    if (okPacket.affectedRows !== 0) return okPacket;
-    throw new Error(`No user updated - user id ${user._id}`);
+    try {
+        const userToSave = {
+            _id: ObjectId(user._id),
+            nickname: user.nickname,
+            fullname: user.fullname,
+        }
+        const collection = await dbService.getCollection('user')
+        await collection.updateOne({ '_id': userToSave._id }, { $set: userToSave })
+        return userToSave;
+    } catch (err) {
+        logger.error(`cannot update user ${user._id}`, err)
+        throw err
+    }
 }
 
 async function add(user) {
-
-    var query = `INSERT INTO user (nickname, fullname)
-    VALUES ("${user.nickname}",
-            "${user.fullname}")`;
-
-    var okPacket = await dbService.runSQL(query);
-    console.log('okPacket is : ', okPacket)
-    return okPacket;
+    try {
+        const userToAdd = {
+            nickname: user.nickname,
+            password: user.password,
+            fullname: user.fullname,
+        }
+        const collection = await dbService.getCollection('user')
+        await collection.insertOne(userToAdd)
+        return userToAdd
+    } catch (err) {
+        logger.error('cannot insert user', err)
+        throw err
+    }
 }
 
+function _buildCriteria(filterBy) {
+    const criteria = {}
+    if (filterBy.txt) {
+        const txtCriteria = { $regex: filterBy.txt, $options: 'i' }
+        criteria.$or = [
+            {
+                nickname: txtCriteria
+            },
+            {
+                fullname: txtCriteria
+            }
+        ]
+    }
+    return criteria
+}

@@ -25,14 +25,13 @@ async function update(user) {
     if (getLoggedinUser()._id === user._id) _saveLocalUser(user)
 }
 
-
 async function login(userCred) {
     const user = await httpService.post('auth/login', userCred)
     if (user) return _saveLocalUser(user)
 }
 async function signup(userCred) {
     const user = await httpService.post('auth/signup', userCred)
-    return _saveLocalUser(user)
+    if (user) return _saveLocalUser(user)
 }
 async function logout() {
     sessionStorage.clear()
@@ -44,7 +43,7 @@ function _saveLocalUser(user) {
 }
 
 async function getLoggedinUser(userId) {
-    const loggedInUser = await httpService.get(`user/${userId}`);
-    return loggedInUser;
+    return JSON.parse(sessionStorage.getItem('loggedinUser'))
+
 }
 

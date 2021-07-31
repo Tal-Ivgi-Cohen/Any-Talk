@@ -13,7 +13,7 @@ async function getUser(req, res) {
 
 async function getUsers(req, res) {
     try {
-        const users = await userService.query(req.query)
+        const users = await userService.query()        
         res.send(users)
     } catch (err) {
         console.log('Failed to get users', err)

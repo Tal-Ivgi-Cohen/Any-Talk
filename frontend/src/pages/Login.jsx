@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 import {
   loadUsers,
   login,
@@ -12,6 +13,7 @@ class _Login extends Component {
     msg: '',
     loginCred: {
       nickname: '',
+      password: ''
     }
   }
 
@@ -32,14 +34,14 @@ class _Login extends Component {
   doLogin = async ev => {
     ev.preventDefault()
     const { loginCred } = this.state
-    const { nickname } = loginCred
+    const { nickname, password } = loginCred
     if (!nickname) {
       return this.setState({ msg: 'Please enter nickname' })
     }
-    const userCreds = { nickname }
+    const userCreds = { nickname, password }
     try {
       this.props.login(userCreds)
-      this.setState({ loginCred: { nickname: '' } })
+      this.setState({ loginCred: { nickname: '', password: '' } })
       this.props.history.push('/chat')
     } catch (err) {
       this.setState({ msg: 'Login failed, try again.' })
@@ -48,20 +50,33 @@ class _Login extends Component {
 
   render() {
     let loginSection = (
-      <div className="login-area">
-        <form onSubmit={this.doLogin}>
-          <select
-            name="nickname"
-            value={this.state.loginCred.nickname}
-            onChange={this.loginHandleChange}
-            className="login-form"
-          >
-            <option value="">Select User</option>
-            {this.props.users && this.props.users.map(user => <option key={user._id} value={user.nickname}>{user.nickname}</option>)}
-          </select>
-          <button>Login</button>
-        </form>
-      </div>
+      <section>
+        <div className="login-area">
+          <form onSubmit={this.doLogin}>
+            <input
+              type="text"
+              name="nickname"
+              value={this.state.loginCred.nickname}
+              onChange={this.loginHandleChange}
+              placeholder="Nickname"
+              className="login-form"
+            />
+            <input
+              name="password"
+              type="password"
+              value={this.state.loginCred.password}
+              onChange={this.loginHandleChange}
+              placeholder="Password"
+              className="login-form"
+            />
+            <button>Login</button>
+          </form>
+        </div>
+        <div className="signup" >
+          <p> If you dont have account, </p>
+          <p>please <span><NavLink className="signup-btn" to="/signup">Sign Up</NavLink></span></p>
+        </div>
+      </section>
     )
 
     const { loggedInUser } = this.props
@@ -69,7 +84,7 @@ class _Login extends Component {
       <div className="login">
         <h1 className="login-title">Login</h1>
         <div className="login-img">
-        <img src={img} alt="login img" />
+          <img src={img} alt="login img" />
         </div>
         <p>{this.state.msg}</p>
         {loggedInUser && (

@@ -1,30 +1,39 @@
-var mysql = require('mysql');
+const MongoClient = require('mongodb').MongoClient
 
-var connection = mysql.createConnection({
-    host: 'sql4.freemysqlhosting.net',
-    port: 3306,
-    user: 'sql4426686',
-    password: 'MmVIzs5QaS',
-    database: 'sql4426686',
-    insecureAuth: true
-});
-
-connection.connect(err => {
-    if (err) throw new Error('mySql failed connection');
-    console.log('connected to SQL server');
-})
-
-
-function runSQL(sqlCommand) {
-    return new Promise((resolve, reject) => {
-        connection.query(sqlCommand, function (error, results, fields) {
-            console.log(results,fields)
-            if (error) reject(error);
-            else resolve(results);
-        });
-    })
-}
+const config = require('../config')
 
 module.exports = {
-    runSQL
+    getCollection
+}
+
+const dbName = 'CHAT_DB'
+
+var dbConn = null
+
+async function getCollection(collectionName) {
+    try {
+        const db = await connect()
+        const collection = await db.collection(collectionName)
+        console.log('collection db service', collectionName);
+        return collection
+    } catch (err) {
+        console.log('Failed to get Mongo collection', err);
+        throw err
+    }
+}
+
+async function connect() {
+    if (dbConn) return dbConn
+    try {
+        const client = await MongoClient.connect(config.dbURL, { useNewUrlParser: true, useUnifiedTopology: true })
+        const db = client.db(dbName)
+        dbConn = db
+        return db
+    } catch (err) {
+        // logger.error('Cannot Connect to DB', err)
+        console.log('Cannot Connect to DB', err);
+
+
+        throw err
+    }
 }

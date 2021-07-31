@@ -50,11 +50,8 @@ export function login(userCreds) {
 export function signup(userCreds) {
   return async dispatch => {
     try {
-      const data = await userService.signup(userCreds)
-      const {user, users } = data;
-      if (data) {
-        dispatch({ type: 'SIGNUP', user, users });
-      }
+      const user = await userService.signup(userCreds)
+      dispatch({ type: 'SET_USER', user })
     } catch (err) {
       console.log('UserActions: err in signup', err)
     }
