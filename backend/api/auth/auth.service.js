@@ -10,12 +10,8 @@ async function login(nickname, password) {
 }
 
 async function signup(nickname, password, fullname) {
-    //const saltRounds = 10
-
     logger.debug(`auth.service - signup with nickname: ${nickname}, fullname: ${fullname}`)
     if (!nickname || !password || !fullname) return Promise.reject('fullname, username and password are required!')
- 
-   //const hash = await bcrypt.hash(password, saltRounds)
     return userService.add({ nickname, password, fullname})
 
 }
