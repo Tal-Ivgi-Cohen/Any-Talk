@@ -11,3 +11,37 @@
         margin: 0 auto;
     }
 }
+
+.signup-form{
+    height: 30vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    input{
+        height: 5vh;
+    }
+}
+
+.signup{
+    margin-left: 45%;
+    .signup-btn{
+        color: $clr2;
+        border: 1px solid black;
+        padding: 10px;
+        font-weight: bold;
+    }
+}
+
+@media (max-width: $mobile-breakpoint) {
+    .signup{
+        margin-left: 25%;
+        .signup-btn{
+            color: $clr2;
+            border: 1px solid black;
+            padding: 10px;
+            font-weight: bold;
+        }
+    }
+ 
+}

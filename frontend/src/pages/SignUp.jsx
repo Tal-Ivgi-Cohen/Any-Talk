@@ -42,35 +42,34 @@ class _SignUp extends Component {
 
     render() {
         let signupSection = (
-            <form className="frm" onSubmit={this.doSignup}>
-                <h2>Signup</h2>
-                <input
-                    type="text"
-                    name="fullname"
-                    value={this.state.signupCred.fullname}
-                    onChange={this.signupHandleChange}
-                    placeholder="Full name"
-                    autoComplete="fullname"
-                />
-                <input
-                    name="password"
-                    type="password"
-                    value={this.state.signupCred.password}
-                    onChange={this.signupHandleChange}
-                    placeholder="Password"
-                    autoComplete="current-password"
-                />
-                <input
-                    type="text"
-                    name="nickname"
-                    value={this.state.signupCred.nickname}
-                    onChange={this.signupHandleChange}
-                    placeholder="Nickname"
-                    autoComplete="nickname"
-                />
-                <br />
-                <button>Signup</button>
-            </form>
+                <form className="signup-form" onSubmit={this.doSignup}>
+                    <input
+                        type="text"
+                        name="fullname"
+                        value={this.state.signupCred.fullname}
+                        onChange={this.signupHandleChange}
+                        placeholder="Full name"
+                        autoComplete="fullname"
+                    />
+                    <input
+                        name="password"
+                        type="password"
+                        value={this.state.signupCred.password}
+                        onChange={this.signupHandleChange}
+                        placeholder="Password"
+                        autoComplete="current-password"
+                    />
+                    <input
+                        type="text"
+                        name="nickname"
+                        value={this.state.signupCred.nickname}
+                        onChange={this.signupHandleChange}
+                        placeholder="Nickname"
+                        autoComplete="nickname"
+                    />
+                    <br />
+                    <button>Signup</button>
+                </form>
         )
 
         const { loggedInUser } = this.props
@@ -80,7 +79,6 @@ class _SignUp extends Component {
                 <div className="signup-img">
                     <img src={img} alt="login img" />
                 </div>
-                {/*<p>{this.state.msg}</p>*/}
                 {loggedInUser && (
                     <div className="login-user">
                         <div>

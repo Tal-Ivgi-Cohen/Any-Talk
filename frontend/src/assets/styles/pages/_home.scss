@@ -79,7 +79,7 @@
 @media(max-width:$narrow-breakpoint){
    .main-hero-content,.artist-hero-title{
        top: 35%;
-       left: 10%; 
+       left: 13%; 
        h1{
            font-size: 25px;
 
@@ -89,7 +89,7 @@
 @media(max-width:$mobile-breakpoint){
    .main-hero-content,.artist-hero-title{
        top: 35%;
-       left: 2%;
+       left: 5%;
        h1{
            font-size: 20px;
        }

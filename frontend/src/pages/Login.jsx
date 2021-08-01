@@ -69,12 +69,11 @@ class _Login extends Component {
               placeholder="Password"
               className="login-form"
             />
-            <button>Login</button>
+            <button  className="login-btn">Login</button>
           </form>
         </div>
         <div className="signup" >
-          <p> If you dont have account, </p>
-          <p>please <span><NavLink className="signup-btn" to="/signup">Sign Up</NavLink></span></p>
+          <NavLink className="signup-btn" to="/signup">Create New Account</NavLink>
         </div>
       </section>
     )

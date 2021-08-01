@@ -32,7 +32,7 @@ body {
         background: #333;
         border: none;
         padding: 0 1rem;
-        margin: 0.25rem;
+       // margin: 0.25rem;
         border-radius: 3px;
         outline: none;
         color: #fff;
@@ -71,10 +71,9 @@ body {
     }
 }
 
-
 @media(max-width:$mobile-breakpoint){
     .chat {
-        height: 32vh;
+        height: 50vh;
         margin: 0 10px;
         p {
             text-align: center;
@@ -94,7 +93,7 @@ body {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    height: 29vh;
+    height: 45vh;
     .messages > li {
         padding: 0.5rem 1rem;
     }

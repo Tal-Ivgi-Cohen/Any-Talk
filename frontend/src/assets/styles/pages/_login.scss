@@ -7,23 +7,12 @@
 
 .login-form {
     height: 5vh;
-    margin: 0 auto 5px auto ;
+    margin: 0 auto 5px auto;
 }
 
-button {
+.login-btn {
     margin: 15px auto;
     height: 5vh;
-}
-
-.signup{
-    margin-left: 45%;
-    .signup-btn{
-      //  font-size:45px;
-        color: $clr2;
-        border: 1px solid black;
-        padding: 5px;
-        font-weight: bold;
-    }
 }
 
 .login {

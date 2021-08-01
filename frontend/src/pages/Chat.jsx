@@ -32,7 +32,7 @@ class _Chat extends Component {
 
   sendMsg = ev => {
     ev.preventDefault()
-    const from =this.props.loggedInUser?.nickname ||'Me'
+    const from = this.props.loggedInUser?.nickname || 'Me'
     socketService.emit('chat newMsg', { from, txt: this.state.msg.txt })
     this.setState({ msg: { from: 'Me', txt: '' } })
   }
@@ -74,10 +74,10 @@ class _Chat extends Component {
           {this.state.msgs.map((msg, idx) => (
             <li key={idx}>
               <div className="message">
-              <Avatar className="avatar">{msg.from}</Avatar>: 
-              <span className="message-txt"> {msg.txt} </span>
+                <Avatar className="avatar"></Avatar>
+                <span className="message-txt"> {msg.from} : {msg.txt} </span>
               </div>
-              </li>
+            </li>
           ))}
         </ScrollToBottom>
         <form className="chat-form" onSubmit={this.sendMsg}>
